@@ -1,0 +1,34 @@
+name: 'CI'
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  ci:
+    name: Continuous Integration
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout Code 🛎
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Go 🐹
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.20'
+          check-latest: true
+
+      - name: Lint checks ✅
+        uses: golangci/golangci-lint-action@v3
+        with:
+          version: latest
+
+      - name: Run unit tests 🧪
+        run: go test -v ./...

@@ -3,6 +3,7 @@ package logging
 import (
 	"testing"
 
+	"github.com/stretchr/testify/assert"
 	"golang.org/x/exp/slog"
 )
 
@@ -11,31 +12,16 @@ func TestInit(t *testing.T) {
 		name     string
 		logLevel string
 	}{
-		{
-			name:     "Debug level",
-			logLevel: "debug",
-		},
-		{
-			name:     "Info level",
-			logLevel: "info",
-		},
-		{
-			name:     "Warn level",
-			logLevel: "warn",
-		},
-		{
-			name:     "Error level",
-			logLevel: "error",
-		},
-		{
-			name:     "Invalid level",
-			logLevel: "invalid",
-		},
+		{"Debug level", "debug"},
+		{"Info level", "info"},
+		{"Warn level", "warn"},
+		{"Error level", "error"},
+		{"Invalid level", "invalid"},
 	}
 
-	for _, test := range tests {
-		t.Run(test.name, func(t *testing.T) {
-			Init(test.logLevel)
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			Init(tt.logLevel)
 		})
 	}
 }
@@ -46,39 +32,17 @@ func TestParseLevel(t *testing.T) {
 		logLevel  string
 		wantLevel slog.Level
 	}{
-		{
-			name:      "Debug",
-			logLevel:  "debug",
-			wantLevel: slog.LevelDebug,
-		},
-		{
-			name:      "Info",
-			logLevel:  "info",
-			wantLevel: slog.LevelInfo,
-		},
-		{
-			name:      "Warn",
-			logLevel:  "warn",
-			wantLevel: slog.LevelWarn,
-		},
-		{
-			name:      "Error",
-			logLevel:  "error",
-			wantLevel: slog.LevelError,
-		},
-		{
-			name:      "Invalid",
-			logLevel:  "invalid",
-			wantLevel: slog.LevelInfo,
-		},
+		{"Debug", "debug", slog.LevelDebug},
+		{"Info", "info", slog.LevelInfo},
+		{"Warn", "warn", slog.LevelWarn},
+		{"Error", "error", slog.LevelError},
+		{"Invalid", "invalid", slog.LevelInfo},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			level := parseLevel(tt.logLevel)
-			if level != tt.wantLevel {
-				t.Errorf("parseLevel(%q) = %v, want %v", tt.logLevel, level, tt.wantLevel)
-			}
+			assert.Equal(t, tt.wantLevel, level)
 		})
 	}
 }

@@ -34,13 +34,12 @@ func TestWriteHeader(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			recorder := httptest.NewRecorder()
-			sw := &statusWriter{
-				ResponseWriter: recorder,
-			}
+			var (
+				recorder = httptest.NewRecorder()
+				sw       = &statusWriter{ResponseWriter: recorder}
+			)
 
 			sw.WriteHeader(tt.statusCode)
-
 			assert.Equal(t, tt.expectedCode, sw.statusCode)
 			assert.Equal(t, tt.expectedCode, recorder.Code)
 		})

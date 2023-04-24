@@ -1,6 +1,10 @@
 package common
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+)
 
 func TestShouldSkip(t *testing.T) {
 	tests := []struct {
@@ -43,10 +47,8 @@ func TestShouldSkip(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			skip := ShouldSkip(tt.path, tt.excludedPrefixes)
-			if skip != tt.want {
-				t.Errorf("ShouldSkip(%q, %v) = %v, want %v", tt.path, tt.excludedPrefixes, skip, tt.want)
-			}
+			got := ShouldSkip(tt.path, tt.excludedPrefixes)
+			assert.Equal(t, tt.want, got)
 		})
 	}
 }

@@ -11,60 +11,27 @@ import (
 
 func TestContains(t *testing.T) {
 	tests := []struct {
-		name     string
-		list     interface{}
-		value    interface{}
-		expected bool
+		name  string
+		list  []interface{}
+		value interface{}
+		want  bool
 	}{
-		{
-			name:     "Int value present in list",
-			list:     []int{1, 2, 3, 4, 5},
-			value:    3,
-			expected: true,
-		},
-		{
-			name:     "Int value not present in list",
-			list:     []int{1, 2, 3, 4, 5},
-			value:    6,
-			expected: false,
-		},
-		{
-			name:     "String value present in list",
-			list:     []string{"apple", "banana", "cherry"},
-			value:    "banana",
-			expected: true,
-		},
-		{
-			name:     "String value not present in list",
-			list:     []string{"apple", "banana", "cherry"},
-			value:    "orange",
-			expected: false,
-		},
-		{
-			name:     "Empty list",
-			list:     []int{},
-			value:    1,
-			expected: false,
-		},
+		{"Int value present in list", []interface{}{1, 2, 3, 4, 5}, 3, true},
+		{"Int value not present in list", []interface{}{1, 2, 3, 4, 5}, 6, false},
+		{"String value present in list", []interface{}{"apple", "banana", "cherry"}, "banana", true},
+		{"String value not present in list", []interface{}{"apple", "banana", "cherry"}, "orange", false},
+		{"Empty list", []interface{}{}, 1, false},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			var result bool
-			switch l := tt.list.(type) {
-			case []int:
-				result = contains(l, tt.value.(int))
-			case []string:
-				result = contains(l, tt.value.(string))
-			}
-
-			assert.Equal(t, tt.expected, result)
+			assert.Equal(t, tt.want, contains(tt.list, tt.value))
 		})
 	}
 }
 
 func TestValidateHeaders(t *testing.T) {
-	testCases := []struct {
+	tests := []struct {
 		name               string
 		validateHeaderFunc func(string) bool
 		requestedHeaders   string
@@ -76,12 +43,10 @@ func TestValidateHeaders(t *testing.T) {
 		{"no headers allowed", func(_ string) bool { return false }, "Content-Type, Accept", false},
 	}
 
-	for _, tc := range testCases {
-		t.Run(tc.name, func(t *testing.T) {
-			got := validateHeaders(tc.validateHeaderFunc, tc.requestedHeaders)
-			if got != tc.want {
-				t.Errorf("validateHeaders() = %v, want %v", got, tc.want)
-			}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := validateHeaders(tt.validateHeaderFunc, tt.requestedHeaders)
+			assert.Equal(t, tt.want, got)
 		})
 	}
 }
@@ -102,9 +67,7 @@ func TestValidateOriginFromList(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got := validateOrigin(tt.origin)
-			if got != tt.want {
-				t.Errorf("ValidateOriginFromList() = %v, want %v", got, tt.want)
-			}
+			assert.Equal(t, tt.want, got)
 		})
 	}
 }
@@ -202,16 +165,12 @@ func TestMiddleware(t *testing.T) {
 
 			middleware(testHandler).ServeHTTP(rr, req)
 
-			if status := rr.Code; status != tt.wantStatus {
-				t.Errorf("handler returned wrong status code: got %v want %v", status, tt.wantStatus)
-			}
+			assert.Equal(t, tt.wantStatus, rr.Code)
 
 			if tt.wantHeaders != nil {
 				for key, wantValue := range tt.wantHeaders {
 					gotValue := rr.Header().Get(key)
-					if gotValue != wantValue {
-						t.Errorf("handler returned wrong header value for %s: got %v want %v", key, gotValue, wantValue)
-					}
+					assert.Equal(t, wantValue, gotValue, "handler returned wrong header value for %s", key)
 				}
 			}
 		})

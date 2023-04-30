@@ -6,7 +6,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/stretchr/testify/require"
+	"github.com/stretchr/testify/assert"
 	"golang.org/x/exp/slog"
 )
 
@@ -38,9 +38,9 @@ func TestMiddleware(t *testing.T) {
 			logged := buf.String()
 
 			if tt.shouldLog {
-				require.Contains(t, logged, tt.path, "expected log to contain path %s, got: %s", tt.path, logged)
+				assert.Contains(t, logged, tt.path, "expected log to contain path %s, got: %s", tt.path, logged)
 			} else {
-				require.NotContains(t, logged, tt.path, "expected log not to contain path %s, got: %s", tt.path, logged)
+				assert.NotContains(t, logged, tt.path, "expected log not to contain path %s, got: %s", tt.path, logged)
 			}
 		})
 	}

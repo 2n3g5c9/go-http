@@ -6,13 +6,19 @@ import (
 	"golang.org/x/exp/slog"
 )
 
-// Init sets a default structured leveled logger
+// Init sets a default structured leveled logger.
 func Init(logLevel string) {
 	var (
-		opts    = slog.HandlerOptions{Level: parseLevel(logLevel)}
-		handler = opts.NewJSONHandler(os.Stdout).WithAttrs([]slog.Attr{slog.String("gitCommit", gitCommit)})
-		logger  = slog.New(handler)
+		opts                 = slog.HandlerOptions{Level: parseLevel(logLevel)}
+		handler slog.Handler = opts.NewJSONHandler(os.Stdout)
 	)
+
+	// Add git commit to all logs if available.
+	if gitCommit != "" {
+		handler = handler.WithAttrs([]slog.Attr{slog.String("gitCommit", gitCommit)})
+	}
+
+	logger := slog.New(handler)
 	slog.SetDefault(logger)
 }
 

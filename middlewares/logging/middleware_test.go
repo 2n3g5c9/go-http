@@ -25,7 +25,7 @@ func TestMiddleware(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			buf := new(bytes.Buffer)
 			Init("info")
-			slog.SetDefault(slog.New(slog.NewJSONHandler(buf).WithAttrs([]slog.Attr{})))
+			slog.SetDefault(slog.New(slog.NewJSONHandler(buf, nil).WithAttrs([]slog.Attr{})))
 
 			nextHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {})
 			middlewareHandler := Middleware(nextHandler, WithExcludedPrefixes(tt.excludedPrefixes))

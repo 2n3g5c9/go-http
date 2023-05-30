@@ -10,7 +10,7 @@ import (
 func Init(logLevel string) {
 	var (
 		opts                 = slog.HandlerOptions{Level: parseLevel(logLevel)}
-		handler slog.Handler = opts.NewJSONHandler(os.Stdout)
+		handler slog.Handler = slog.NewJSONHandler(os.Stdout, &opts)
 	)
 
 	// Add git commit to all logs if available.

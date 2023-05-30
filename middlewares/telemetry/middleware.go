@@ -6,7 +6,6 @@ import (
 	"time"
 
 	"go.opentelemetry.io/otel"
-	"go.opentelemetry.io/otel/metric/global"
 	semconv "go.opentelemetry.io/otel/semconv/v1.18.0"
 
 	"github.com/2n3g5c9/go-http/middlewares/common"
@@ -34,7 +33,7 @@ func Middleware(next http.Handler, opts ...MiddlewareOption) http.Handler {
 
 	var (
 		pkgName = reflect.TypeOf(struct{}{}).PkgPath()
-		meter   = global.MeterProvider().Meter(pkgName)
+		meter   = otel.GetMeterProvider().Meter(pkgName)
 		tracer  = otel.GetTracerProvider().Tracer(pkgName)
 		metrics = NewMetrics(&meter)
 	)

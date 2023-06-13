@@ -7,6 +7,7 @@ import (
 
 	"go.opentelemetry.io/otel"
 	semconv "go.opentelemetry.io/otel/semconv/v1.18.0"
+	"go.opentelemetry.io/otel/trace"
 
 	"github.com/2n3g5c9/go-http/middlewares/common"
 )
@@ -34,7 +35,6 @@ func Middleware(next http.Handler, opts ...MiddlewareOption) http.Handler {
 	var (
 		pkgName = reflect.TypeOf(struct{}{}).PkgPath()
 		meter   = otel.GetMeterProvider().Meter(pkgName)
-		tracer  = otel.GetTracerProvider().Tracer(pkgName)
 		metrics = NewMetrics(&meter)
 	)
 
@@ -44,7 +44,8 @@ func Middleware(next http.Handler, opts ...MiddlewareOption) http.Handler {
 			return
 		}
 
-		ctx, span := tracer.Start(r.Context(), r.URL.Path)
+		ctx := r.Context()
+		span := trace.SpanFromContext(ctx)
 		defer span.End()
 
 		span.SetAttributes(

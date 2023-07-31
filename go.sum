@@ -16,11 +16,11 @@ github.com/GoogleCloudPlatform/opentelemetry-operations-go/detectors/gcp v1.15.0
 github.com/GoogleCloudPlatform/opentelemetry-operations-go/detectors/gcp v1.15.0/go.mod h1:Xx0VKh7GJ4si3rmElbh19Mejxz68ibWg/J30ZOMrqzU=
 github.com/GoogleCloudPlatform/opentelemetry-operations-go/exporter/metric v0.39.0 h1:nrWL/w+inmPpcGFtwf2lTqso5K6xWYTtuceGQyeRqFM=
 github.com/GoogleCloudPlatform/opentelemetry-operations-go/exporter/metric v0.39.0/go.mod h1:fCafbrOqSLWndNBJ59PD9TxefdPr2Kn7uTnlGW9fHPo=
-github.com/GoogleCloudPlatform/opentelemetry-operations-go/exporter/trace v1.15.0 h1:5uR5WqunMUqN5Z+USN/N25aM7zWd0JUCIfz1B/w0HtA=
-github.com/GoogleCloudPlatform/opentelemetry-operations-go/exporter/trace v1.15.0/go.mod h1:LTScD9l1w6+z1IB3FKtXxS4oenRlIJQQrIiV/Iq1Bsw=
-github.com/GoogleCloudPlatform/opentelemetry-operations-go/internal/cloudmock v0.39.0 h1:RDD62LpQbuv4rpLOm0w1zlLIcIo7k+zi3EZV5nVyAo8=
-github.com/GoogleCloudPlatform/opentelemetry-operations-go/internal/resourcemapping v0.39.0 h1:uZvy89rOd+9ryIir65RO7BmKYxQ9uBbFcnNcslu6RIM=
-github.com/GoogleCloudPlatform/opentelemetry-operations-go/internal/resourcemapping v0.39.0/go.mod h1:lz6DEePTxmjvYMtusOoS3qDAErC0STi/wmvqJucKY28=
+github.com/GoogleCloudPlatform/opentelemetry-operations-go/exporter/trace v1.18.0 h1:82lUmcpHzBEpGP4qURZvMSU1rJV0AAfXtOCh7Qz6oDw=
+github.com/GoogleCloudPlatform/opentelemetry-operations-go/exporter/trace v1.18.0/go.mod h1:6abS6wU43wU97qP+JseSJq2+C8/XL50co74AhoMJwwU=
+github.com/GoogleCloudPlatform/opentelemetry-operations-go/internal/cloudmock v0.42.0 h1:thAXdOpdEJPWW7kZmD8wU/yhQjd7PA6L01TxFcR5OOY=
+github.com/GoogleCloudPlatform/opentelemetry-operations-go/internal/resourcemapping v0.42.0 h1:4gL61NwEDGAFvLJeEMjTYJm6r1T26k3QYuDZK9YEaAk=
+github.com/GoogleCloudPlatform/opentelemetry-operations-go/internal/resourcemapping v0.42.0/go.mod h1:lz6DEePTxmjvYMtusOoS3qDAErC0STi/wmvqJucKY28=
 github.com/antihax/optional v1.0.0/go.mod h1:uupD/76wgC+ih3iEmQUL+0Ugr19nfwCT1kdvxnR2qWY=
 github.com/census-instrumentation/opencensus-proto v0.2.1/go.mod h1:f6KPmirojxKA12rnyqOA5BBL4O983OfeGPqjHWSTneU=
 github.com/cespare/xxhash/v2 v2.1.1/go.mod h1:VGX0DQ3Q6kWi7AoAeZDth3/j3BFtOZR5XLFGgcrjCOs=
